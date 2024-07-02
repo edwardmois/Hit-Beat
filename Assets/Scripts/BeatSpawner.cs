@@ -10,6 +10,7 @@ public class BeatSpawner : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("BeatSpawner started");
         StartCoroutine(SpawnOnBeat());
     }
 
@@ -17,7 +18,8 @@ public class BeatSpawner : MonoBehaviour
     {
         while (true)
         {
-            StartCoroutine(targetSpawner.SpawnTargets());
+            Debug.Log("Spawning target on beat");
+            targetSpawner.SpawnTarget(); // Trigger single spawn
             yield return new WaitForSeconds(beatInterval);
         }
     }

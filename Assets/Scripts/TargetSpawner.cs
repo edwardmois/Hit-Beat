@@ -5,21 +5,12 @@ using UnityEngine;
 public class TargetSpawner : MonoBehaviour
 {
     public GameObject targetPrefab;
-    public float spawnInterval = 1f;
     public Transform[] spawnPoints;
 
-    void Start()
+    public void SpawnTarget()
     {
-        StartCoroutine(SpawnTargets());
-    }
-
-    public IEnumerator SpawnTargets() // Change the access modifier to public
-    {
-        while (true)
-        {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            Instantiate(targetPrefab, spawnPoint.position, spawnPoint.rotation);
-            yield return new WaitForSeconds(spawnInterval);
-        }
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        Debug.Log("Spawning target at: " + spawnPoint.position);
+        Instantiate(targetPrefab, spawnPoint.position, spawnPoint.rotation);
     }
 }
