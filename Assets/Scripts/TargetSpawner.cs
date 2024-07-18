@@ -5,21 +5,13 @@ using UnityEngine;
 public class TargetSpawner : MonoBehaviour
 {
     public GameObject targetPrefab;
-    public Transform[] spawnPoints;
+    public Transform[] holePositions; // Array of hole positions
 
     public void SpawnTarget()
     {
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        GameObject target = Instantiate(targetPrefab, spawnPoint.position, spawnPoint.rotation);
-
-        // Set random direction for arrow (left, right, up)
-        Vector3[] directions = { Vector3.left, Vector3.right, Vector3.up };
-        Vector3 selectedDirection = directions[Random.Range(0, directions.Length)];
-
-        ArrowDirection arrowDirection = target.GetComponent<ArrowDirection>();
-        if (arrowDirection != null)
-        {
-            arrowDirection.SetDirection(selectedDirection);
-        }
+        // Select a random hole position
+        Transform holePosition = holePositions[Random.Range(0, holePositions.Length)];
+        // Instantiate the target at the selected hole position
+        Instantiate(targetPrefab, holePosition.position, holePosition.rotation);
     }
 }
