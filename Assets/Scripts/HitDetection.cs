@@ -8,8 +8,6 @@ public class HitDetection : MonoBehaviour
     public float kickForce = 10f; // Force applied to the target on hit
     public float lifeTime = 5f; // Time before the target is destroyed if not hit
     public GameObject hitEffectPrefab; // Reference to the hit effect prefab
-    public AudioClip hitSound; // Reference to the hit sound clip
-    private AudioSource audioSource; // Reference to the AudioSource component
 
     void Start()
     {
@@ -17,16 +15,6 @@ public class HitDetection : MonoBehaviour
         if (gameManager == null)
         {
             Debug.LogError("GameManager not found in the scene.");
-        }
-
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            Debug.LogError("AudioSource component not found on target.");
-        }
-        else
-        {
-            audioSource.playOnAwake = false; // Ensure it doesn't play on awake
         }
 
         // Start the destruction countdown
@@ -54,17 +42,11 @@ public class HitDetection : MonoBehaviour
             if (hitEffectPrefab != null)
             {
                 Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
-            }
-
-            // Play hit sound directly
-            if (audioSource != null && hitSound != null)
-            {
-                Debug.Log("Playing hit sound");
-                audioSource.PlayOneShot(hitSound);
+                Debug.Log("Hit effect instantiated.");
             }
             else
             {
-                Debug.LogError("AudioSource or hitSound is null");
+                Debug.LogError("Hit effect prefab is null.");
             }
 
             // Apply force to the target's Rigidbody (optional)
